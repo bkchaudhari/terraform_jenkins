@@ -27,7 +27,7 @@ pipeline {
         stage('Apply') {
             steps {
                 terraformApply(
-                    workingDirectory: './terraform',
+                    workingDirectory: 'master/lbvserver',
                     commandOptions: '-auto-approve'
                 )
             }
