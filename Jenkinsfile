@@ -11,7 +11,7 @@ pipeline{
         }
         stage('terraform init'){
             steps{
-                powershell 'terraform int'
+                powershell 'terraform init'
             }
         }
     }
