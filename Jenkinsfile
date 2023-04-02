@@ -14,6 +14,7 @@ pipeline{
             steps {
                 powershell 'cd master/lbvserver'
             }
+        }
         stage('terraform init'){
             steps{
                 powershell 'terraform init'
