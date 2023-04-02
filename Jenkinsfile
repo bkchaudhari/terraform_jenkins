@@ -13,6 +13,7 @@ pipeline{
         stage('build') {
             steps {
                 powershell 'cd master/lbvserver'
+            }
         stage('terraform init'){
             steps{
                 powershell 'terraform init'
