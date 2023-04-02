@@ -11,7 +11,7 @@ pipeline {
         stage('Init') {
             steps {
                 terraformInit(
-                    workingDirectory: 'master/lbvserver',
+                    workingDirectory: '.terraform/lbvserver',
                 )
             }
         }
@@ -19,7 +19,7 @@ pipeline {
         stage('Plan') {
             steps {
                 terraformPlan(
-                    workingDirectory: 'master/lbvserver',
+                    workingDirectory: '.terraform/lbvserver',
                 )
             }
         }
@@ -27,7 +27,7 @@ pipeline {
         stage('Apply') {
             steps {
                 terraformApply(
-                    workingDirectory: 'master/lbvserver',
+                    workingDirectory: '.terraform/lbvserver',
                     commandOptions: '-auto-approve'
                 )
             }
