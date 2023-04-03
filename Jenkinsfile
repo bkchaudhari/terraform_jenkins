@@ -7,12 +7,12 @@ pipeline{
         
         stage('Git checkout'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '/lbvserver']], userRemoteConfigs: [[url: 'https://github.com/bkchaudhari/terraform_jenkins']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'lbvserver']], userRemoteConfigs: [[url: 'https://github.com/bkchaudhari/terraform_jenkins']]])
             }
         }
         stage('build') {
             steps {
-                powershell 'cd .\lbvserver\'
+                powershell 'cd \lbvserver'
             }
         }
         stage('terraform init'){
