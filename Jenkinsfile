@@ -12,5 +12,6 @@ pipeline{
                 powershell 'terraform init'
                 }
             }   
+        }
     }
 }
