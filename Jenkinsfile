@@ -17,7 +17,7 @@ pipeline {
      stage('Terraform Plan') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-          powershell ("""
+          powershell curl -u ("""
             cd lbvserver
             terraform plan -backend-config='username=${username}' -backend-config='password=${password}'" -auto-approve
           """)
@@ -27,7 +27,7 @@ pipeline {
      stage('Terraform Apply') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-          powershell ("""
+          powershell curl -u ("""
             cd lbvserver
             terraform apply -backend-config='username=${username}' -backend-config='password=${password}'" -auto-approve
           """)
