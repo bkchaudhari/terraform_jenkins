@@ -18,12 +18,9 @@ pipeline {
         }
          stage('terraform plan') {
             steps{
-                 environment {
-                terraformcred = credentials('terraform-credentials')
-                }
                  dir("lbvserver") {
                     withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-                    powershell "terraform plan"
+                        powershell 'terraform plan ${terraform-credentials}'
                     }
                  }
              }
