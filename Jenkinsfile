@@ -14,13 +14,12 @@ pipeline {
         }
       }
     }
-    
     stage('Terraform Plan') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
             cd lbvserver
-            terraform plan -out=tfplan
+            terraform plan
           """)
         }
       }
@@ -31,7 +30,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
             cd lbvserver
-            terraform apply tfplan
+            terraform apply -auto-approve
           """)
         }
       }
