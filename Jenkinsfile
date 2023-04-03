@@ -29,5 +29,18 @@ pipeline {
                  }
              }
          }
+        stage('terraform apply') {
+            steps{
+                 dir("lbvserver") {
+                    withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
+                         powershell("""
+                         \$env:username = \"\${env:username}\"
+                         \$env:password = \"\${env:password}\"
+                            terraform apply -auto-approve
+                          """)
+                    }
+                 }
+            }
+        }
     }
 }
