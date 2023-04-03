@@ -16,14 +16,13 @@ pipeline {
                 }
             }
         }
-        stage('terraform plan') {
+         stage('terraform plan') {
             steps{
                  dir("lbvserver") {
-                 withCredentials([string(credentialsId: '', variable: 'terraform-credentials')]){
+                    withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) 
                     powershell "terraform plan'
                  }
-                }
-            }
-        } 
+             }
+         }
     }
-}   
+}
