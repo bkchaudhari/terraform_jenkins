@@ -21,8 +21,7 @@ pipeline {
                  dir("lbvserver") {
                     withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
                          powershell("""
-                            cd terraform
-                            terraform init
+                            terraform plan
                           """)
                     }
                  }
