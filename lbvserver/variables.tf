@@ -12,7 +12,6 @@ variable "backend_services" {
   description = "The list of backend services (ip address:port list)"
   type        = list(string)
 }
-/*
 variable "ns_username" {
   description = "ADC administrator username"
   type        = string
@@ -22,4 +21,4 @@ variable "ns_password" {
   description = "ADC administrator password"
   type        = string
   sensitive   = true
-}*/
+}
