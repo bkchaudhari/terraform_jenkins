@@ -12,7 +12,7 @@ variable "backend_services" {
   description = "The list of backend services (ip address:port list)"
   type        = list(string)
 }
-/*variable "username" {
+variable "username" {
   description = "ADC administrator username"
   type        = string
   sensitive   = true
@@ -22,4 +22,3 @@ variable "password" {
   type        = string
   sensitive   = true
 }
-*/
