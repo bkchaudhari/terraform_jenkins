@@ -11,12 +11,16 @@ pipeline {
         }
         stage('terraform Init') {
             steps{
-                powershell 'terraform init'
+                dir("lbvserver") {
+                    powershell 'terraform init'
+                }
             }
         }
         stage('terraform plan') {
             steps{
-                powershell 'terraform plan --auto-approve'
+                 dir("lbvserver") {
+                     powershell 'terraform plan --auto-approve'
+                 }
             }
         }
     } 
