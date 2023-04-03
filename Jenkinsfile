@@ -20,7 +20,10 @@ pipeline {
             steps{
                  dir("lbvserver") {
                     withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-                        powershell 'terraform plan - ${terraform-credentials}'
+                         powershell("""
+                            cd terraform
+                            terraform init
+                          """)
                     }
                  }
              }
