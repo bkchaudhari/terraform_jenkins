@@ -14,9 +14,9 @@ pipeline {
                 powershell 'terraform init'
             }
         }
-        stage('terraform apply') {
+        stage('terraform plan') {
             steps{
-                powershell 'terraform apply --auto-approve'
+                powershell 'terraform plan --auto-approve'
             }
         }
     } 
