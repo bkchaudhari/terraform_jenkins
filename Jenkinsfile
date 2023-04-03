@@ -19,12 +19,11 @@ pipeline {
         stage('terraform plan') {
             steps{
                  dir("lbvserver") {
-                 withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
-                    powershell "terraform plan -backend-config='token=${username}' -backend-config='secret=${password}'"
-                 
+                 withCredentials([string(credentialsId: '', variable: 'terraform-credentials')]){
+                    powershell "terraform plan'
                  }
+                }
             }
-        }
-    } 
-}
+        } 
+    }
 }   
