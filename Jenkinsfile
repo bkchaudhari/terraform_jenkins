@@ -7,7 +7,7 @@ pipeline {
     stage('Terraform Init') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-          pwsh("""
+          powershell("""
             cd lbvserver
             terraform init
           """)
