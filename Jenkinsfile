@@ -20,7 +20,7 @@ pipeline {
             steps{
                  dir("lbvserver") {
                     withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-                        powershell 'terraform plan ${terraform-credentials}'
+                        powershell -ExecutionPolicy Bypass 'terraform plan ${terraform-credentials}'
                     }
                  }
              }
