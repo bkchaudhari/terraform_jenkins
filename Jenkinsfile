@@ -27,7 +27,7 @@ pipeline {
      stage('Terraform Apply') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-          powershell Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force("""
+          powershell Set-ExecutionPolicy -Scope CurrentUser RemoteSigned -Force ("""
             cd lbvserver
             terraform apply -backend-config='username=${username}' -backend-config='password=${password}'" -auto-approve
           """)
