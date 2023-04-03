@@ -7,6 +7,4 @@ terraform {
 }
 provider "citrixadc" {
   endpoint = "http://172.16.149.100"
-  username = var.username
-  password = var.password
 }
