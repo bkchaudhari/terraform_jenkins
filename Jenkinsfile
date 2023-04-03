@@ -19,7 +19,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
             cd lbvserver
-            terraform plan -auto-approve
+            terraform plan -backend-config='username=${username}' -backend-config='password=${password}'" -auto-approve
           """)
         }
       }
@@ -29,7 +29,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
             cd lbvserver
-            terraform apply -auto-approve
+            terraform apply -backend-config='username=${username}' -backend-config='password=${password}'" -auto-approve
           """)
         }
       }
