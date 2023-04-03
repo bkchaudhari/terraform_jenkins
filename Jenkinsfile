@@ -19,7 +19,7 @@ pipeline {
         stage('terraform plan') {
             steps{
                  dir("lbvserver") {
-                    withTerraform([usernamePassword(credentialsId: 'terraform-credentials'])
+                    withTerraform(usernamePassword(credentialsId: 'terraform-credentials')
                     powershell 'terraform plan'
                  }
             }
