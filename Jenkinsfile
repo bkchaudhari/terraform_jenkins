@@ -19,7 +19,7 @@ pipeline {
         stage('terraform plan') {
             steps{
                  dir("lbvserver") {
-                     powershell 'terraform plan --auto-approve'
+                     powershell 'terraform plan -var-file="../secret.tfvars"'
                  }
             }
         }
