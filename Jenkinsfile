@@ -16,10 +16,12 @@ pipeline {
     }
     stage('Terraform Apply') {
       steps {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
             cd lbvserver
-            terraform apply -var-file="../secret.tfvars" -auto-approve
+            terraform apply -auto-approve
           """)
+        }
       }
     }
   }
