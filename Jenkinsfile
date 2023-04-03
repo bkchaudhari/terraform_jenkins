@@ -19,7 +19,8 @@ pipeline {
         stage('terraform plan') {
             steps{
                  dir("lbvserver") {
-                     powershell 'terraform plan -var-file="../secret.tfvars"'
+                    withTerraform(credentialsId: 'terraform-credentials')
+                    powershell 'terraform plan'
                  }
             }
         }
