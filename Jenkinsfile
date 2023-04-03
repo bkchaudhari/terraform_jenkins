@@ -20,7 +20,7 @@ pipeline {
             steps{
                  dir("lbvserver") {
                  withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'TF_API_TOKEN', passwordVariable: 'TF_API_SECRET')]) {
-                    powershell "terraform init -backend-config='token=${TF_API_TOKEN}' -backend-config='secret=${TF_API_SECRET}'"
+                    powershell "terraform plan -backend-config='token=${TF_API_TOKEN}' -backend-config='secret=${TF_API_SECRET}'"
                  
                  }
             }
