@@ -1,30 +1,38 @@
 pipeline {
-    agent any
-    tools {
+  agent any
+   tools {
         terraform 'Terraform'
     }
-    stages {
-        stage('Git checkout') {
-           steps{
-                git 'https://github.com/bkchaudhari/terraform_jenkins'
-            }
+  stages {
+    stage('Terraform Init') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
+         powershell("""
+            cd lbvserver
+            terraform init
+          """)
         }
-        stage('terraform Init') {
-            steps{
-                dir("lbvserver") {
-                    powershell 'terraform init'
-                }
-            }
+      }
+    }
+     stage('Terraform Plan') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
+          powershell("""
+            cd lbvserver
+            terraform plan --auto-approve
+          """)
         }
-        stage('terraform plan') {
-            steps{
-                 dir("lbvserver") {
-                 withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'TF_API_TOKEN', passwordVariable: 'TF_API_SECRET')]) {
-                    powershell "terraform plan -backend-config='token=${TF_API_TOKEN}' -backend-config='secret=${TF_API_SECRET}'"
-                 
-                 }
-            }
+      }
+    }
+     stage('Terraform Apply') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
+          powershell("""
+            cd lbvserver
+            terraform apply --auto-approve
+          """)
         }
-    } 
+      }
+    }
+  }
 }
-}   
