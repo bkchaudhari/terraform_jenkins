@@ -36,7 +36,7 @@ pipeline {
                          powershell("""
                          \$env:username = \"\${env:username}\"
                          \$env:password = \"\${env:password}\"
-                            terraform apply -auto-approve
+                            terraform apply
                           """)
                     }
                  }
