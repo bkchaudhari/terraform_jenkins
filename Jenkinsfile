@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Terraform Init') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
             cd lbvserver
             terraform init
@@ -17,7 +17,7 @@ pipeline {
     
     stage('Terraform Plan') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
             cd lbvserver
             terraform plan -out=tfplan
@@ -28,7 +28,7 @@ pipeline {
     
     stage('Terraform Apply') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
             cd lbvserver
             terraform apply tfplan
