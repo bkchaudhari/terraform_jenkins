@@ -1,46 +1,38 @@
 pipeline {
-    agent any
-    tools {
-        terraform 'Terraform'
+  agent any
+  
+  stages {
+    stage('Terraform Init') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
+          powershell("""
+            cd lbvserver
+            terraform init
+          """)
+        }
+      }
     }
-    stages {
-        stage('Git checkout') {
-           steps{
-                git 'https://github.com/bkchaudhari/terraform_jenkins'
-            }
+    
+    stage('Terraform Plan') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
+          powershell("""
+            cd lbvserver
+            terraform plan -out=tfplan
+          """)
         }
-        stage('terraform Init') {
-            steps{
-                dir("lbvserver") {
-                    powershell 'terraform init'
-                }
-            }
-        }
-         stage('terraform plan') {
-            steps{
-                 dir("lbvserver") {
-                    withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-                         powershell("""
-                         \$env:username = \"\${env:username}\"
-                         \$env:password = \"\${env:password}\"
-                            terraform plan
-                          """)
-                    }
-                 }
-             }
-         }
-        stage('terraform apply') {
-            steps{
-                 dir("lbvserver") {
-                    withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-                         powershell("""
-                         \$env:username = \"\${env:username}\"
-                         \$env:password = \"\${env:password}\"
-                            terraform apply -auto-approve
-                          """)
-                    }
-                 }
-            }
-        }
+      }
     }
+    
+    stage('Terraform Apply') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', usernameVariable: 'username', passwordVariable: 'password')]) {
+          powershell("""
+            cd lbvserver
+            terraform apply tfplan
+          """)
+        }
+      }
+    }
+  }
 }
