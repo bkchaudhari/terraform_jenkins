@@ -8,7 +8,7 @@ pipeline {
       steps {
         withCredentials([file(credentialsId: 'terrafromcred', variable: 'TF_VAR_Terraform')]) {
           powershell("""
-            cd lbvserver1
+            cd lbvserver
             terraform init
           """)
         }
@@ -18,7 +18,7 @@ pipeline {
       steps {
          withCredentials([file(credentialsId: 'terrafromcred', variable: 'TF_VAR_Terraform')]) {
           powershell("""
-            cd lbvserver1
+            cd lbvserver
             terraform plan --auto-approve
           """)
         }
@@ -28,7 +28,7 @@ pipeline {
       steps {
          withCredentials([file(credentialsId: 'terrafromcred', variable: 'TF_VAR_Terraform')]) {
           powershell("""
-            cd lbvserver1
+            cd lbvserver
             terraform apply --auto-approve
           """)
         }
