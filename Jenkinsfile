@@ -8,10 +8,8 @@ pipeline {
       steps {
         withCredentials([file(credentialsId: 'terrafromcred', variable: 'TF_VAR_Terraform')]) {
           powershell("""
-          Invoke-Command -ScriptBlock {
             cd lbvserver
             terraform init
-          }
           """)
         }
       }
@@ -20,10 +18,8 @@ pipeline {
       steps {
          withCredentials([file(credentialsId: 'terrafromcred', variable: 'TF_VAR_Terraform')]) {
           powershell("""
-           Invoke-Command -ScriptBlock {
              cd lbvserver
               terraform plan --auto-approve
-           } 
           """)
         }
       }
@@ -32,10 +28,8 @@ pipeline {
       steps {
          withCredentials([file(credentialsId: 'terrafromcred', variable: 'TF_VAR_Terraform')]) {
           powershell("""
-          Invoke-Command -ScriptBlock {
             cd lbvserver
             terraform apply --auto-approve
-          }
           """)
         }
       }
