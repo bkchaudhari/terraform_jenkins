@@ -8,7 +8,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
          powershell("""
-            cd lbvserver
+            cd lbvserver1
             terraform init
           """)
         }
@@ -18,7 +18,7 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
           powershell("""
-            cd lbvserver
+            cd lbvserver1
             terraform plan --auto-approve
           """)
         }
