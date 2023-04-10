@@ -6,13 +6,11 @@ pipeline {
   stages {
     stage('Terraform Init') {
       steps {
-        withCredentials([file(credentialsId: 'terrafromcred', variable: 'TF_VAR_Terraform')]) {
           powershell("""
             cd lbvserver
             terraform init
           """)
         }
-      }
     }
     stage('Terraform Plan') {
       steps {
