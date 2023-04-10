@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Terraform Init') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'TF_VAR_ns_password', usernameVariable: 'TF_VAR_ns_username')]) {
          powershell("""
             cd lbvserver1
             terraform init
@@ -14,12 +14,22 @@ pipeline {
         }
       }
     }
-     stage('Terraform Plan') {
+    stage('Terraform Plan') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'TF_VAR_ns_password', usernameVariable: 'TF_VAR_ns_username')]) {
           powershell("""
             cd lbvserver1
             terraform plan --auto-approve
+          """)
+        }
+      }
+    }
+	stage('Terraform apply') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'terraform-credentials', passwordVariable: 'TF_VAR_ns_password', usernameVariable: 'TF_VAR_ns_username')]) {
+          powershell("""
+            cd lbvserver1
+            terraform apply --auto-approve
           """)
         }
       }
